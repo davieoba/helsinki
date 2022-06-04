@@ -1,0 +1,31 @@
+title exercise 0.6
+
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa
+server-->browser: sends spa html
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+server-->browser: sends main.css code
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+server-->browser: sends spa.js
+
+note over browser: 
+the browser executes the js code
+and request json code from the server
+end note
+
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+server-->browser: sends json data 
+
+note over browser: 
+the browser executes the event handler
+and renders the data on the page
+end note
+
+browser->server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+
+note over browser: 
+the js code prevents the page from running
+a new get request 
+the browser is updated by the spa.js
+end note 
+
+

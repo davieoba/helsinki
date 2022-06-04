@@ -1,0 +1,21 @@
+.App {
+  padding: 10px;
+}
+
+.btn_container {
+  display: flex;
+  column-gap: 5px;
+  margin-bottom: 30px;
+}
+
+button {
+  outline: none;
+  border: 2px solid #eee;
+  border-radius: 5px;
+  padding: 3px 8px;
+  background-color: transparent;
+}
+
+.stats_header {
+  margin-bottom: 30px;
+}
