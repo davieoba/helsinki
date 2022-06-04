@@ -9,12 +9,12 @@ const Footer = () => {
   )
 }
 
-const Part = ({ part, excercise }) => {
+const Part = ({ part, exercise }) => {
   return (
     <>
       <p>
         {part} <span></span>
-        {excercise}
+        {exercise}
       </p>
     </>
   )
@@ -23,9 +23,9 @@ const Part = ({ part, excercise }) => {
 const Content = ({ props }) => {
   return (
     <>
-      <Part part={props[0].name} excercise={props[0].exercises1} />
-      <Part part={props[1].name} excercise={props[1].exercises2} />
-      <Part part={props[2].name} excercise={props[2].exercises3} />
+      <Part part={props[0].name} exercise={props[0].exercises1} />
+      <Part part={props[1].name} exercise={props[1].exercises2} />
+      <Part part={props[2].name} exercise={props[2].exercises3} />
     </>
   )
 }
@@ -33,7 +33,7 @@ const Content = ({ props }) => {
 const Total = (props) => {
   return (
     <p>
-      Number of excercises {props.exercise1 + props.exercise2 + props.exercise3}
+      Number of exercises {props.exercise1 + props.exercise2 + props.exercise3}
     </p>
   )
 }
