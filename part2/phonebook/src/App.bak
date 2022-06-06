@@ -84,12 +84,10 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
 
-      {/* filter shown with <input type='text' onChange={handleFilter} /> */}
-      <Filter handleFilter={handleFilter} />
+      filter shown with <input type='text' onChange={handleFilter} />
 
       <h2>Add a new </h2>
-
-      {/* <form onSubmit={handleSubmit} >
+      <form onSubmit={handleSubmit} >
         <div>
           <label htmlFor="name">name:</label>
           <input id='name' value={newName.username} onChange={handleChange} name='username' />
@@ -103,17 +101,13 @@ const App = () => {
         <div>
           <button type="submit" >add</button>
         </div>
-      </form> */}
-
-      <PersonForm handleSubmit={handleSubmit} userNameValue={newName.username} handleChange={handleChange} userPhoneValue={newName.phone} />
+      </form>
 
       <h3>Numbers</h3>
       <ul>
-        {/* {render.map((el, i) => {
+        {render.map((el, i) => {
           return <li key={el.name}> {el.name} {el.number}</li>
-        })} */}
-
-        <Persons render={render} />
+        })}
       </ul>
     </div>
   )
