@@ -1,11 +1,14 @@
 
-export const Persons = ({ render }) => {
-    return (
-        <>
-            {render.map((el, i) => {
-                return <li key={el.name}> {el.name} {el.number}</li>
-            })}
-        </>
-    )
+export const Persons = ({ render, handleDelete }) => {
+
+    const el = render?.map((el) => {
+
+        return <div key={el.id} className='test'>
+            <li> {el.name} {el.number}</li>
+            <button onClick={() => handleDelete(el.id)}>delete</button>
+        </div>
+    })
+
+    return <>{el}</>
 }
 

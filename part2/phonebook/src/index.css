@@ -9,7 +9,7 @@ input {
 }
 
 button {
-  height: 44px;
+  height: 24px;
   width: 88px;
   border-radius: 4px;
   border: 1px solid #eee;
@@ -17,7 +17,7 @@ button {
   margin-top: 10px;
   outline: none;
   box-shadow: 1px 1px 3px 1px rgb(0 0 0 / 30%);
-  margin-left: 60px;
+  margin-left: 10px;
 }
 
 label {
@@ -30,4 +30,26 @@ ul {
   list-style: none;
   padding: 0;
   margin: 0;
+}
+
+.test {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.success {
+  border: 2px solid #16a25e;
+  background-color: #eee;
+  padding: 15px;
+}
+
+.error {
+  border: 2px solid tomato;
+  background-color: #eee;
+  padding: 15px;
+}
+
+.none {
+  display: none;
 }
