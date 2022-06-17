@@ -1,0 +1,53 @@
+* {
+  box-sizing: border-box;
+}
+
+.App {
+  padding: 20px;
+}
+
+.show {
+  display: flex;
+  column-gap: 10px;
+  align-items: center;
+}
+
+input {
+  border: 1px solid #eee;
+  border-radius: 4px;
+  height: 22px;
+  transition: 0.1s;
+  -webkit-transition: 0.1s;
+  outline: none;
+  width: 150px;
+  margin: 0 5px;
+}
+
+button {
+  outline: none;
+  background: transparent;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  height: 23px;
+  width: 60px;
+}
+
+input:focus {
+  border: 2px solid #555;
+}
+
+.country_input {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.country_list {
+  display: flex;
+  column-gap: 10px;
+  margin-top: 30px;
+}
+
+li {
+  padding: 0;
+  margin: 0;
+}

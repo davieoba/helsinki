@@ -20,10 +20,6 @@ button {
   margin-left: 60px;
 }
 
-button:hover {
-  /* background-color: #2fe; */
-}
-
 label {
   text-transform: uppercase;
   margin-right: 10px;
