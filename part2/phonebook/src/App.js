@@ -5,8 +5,8 @@ import { PersonForm } from './components/PersonForm';
 import { Persons } from './components/Persons';
 import phoneService from './services/phoneService'
 import { Notification } from './components/Notification';
- 
 
+// https://phone-backend-davidbond.herokuapp.com/api/persons
 const App = () => {
 
   const [persons, setPersons] = useState([])
@@ -181,19 +181,27 @@ const App = () => {
 
   return (
     <div>
-      <h2>Phonebook</h2>
+      <h2 className='title'>Phonebook</h2>
 
       < Notification classProp={notif.classProp} message={notif.message} />
 
-      <Filter handleFilter={handleFilter} />
+      <div className='main'>
 
-      <h2>Add a new </h2>
+        <div className='section_1'>
+          <Filter handleFilter={handleFilter} />
 
-      <PersonForm handleSubmit={handleSubmit} userNameValue={newName.username} handleChange={handleChange} userPhoneValue={newName.phone} />
+          <h2 className='header_add'>Add a new </h2>
 
-      <h3>Numbers</h3>
+          <PersonForm handleSubmit={handleSubmit} userNameValue={newName.username} handleChange={handleChange} userPhoneValue={newName.phone} />
+        </div>
 
-      <Persons render={render} handleDelete={handleDelete} />
+        <div className='section_2'>
+          <h3>Numbers</h3>
+
+          <Persons render={render} handleDelete={handleDelete} />
+        </div>
+
+      </div>
 
     </div>
   )

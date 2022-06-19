@@ -2,7 +2,8 @@
 export const Filter = ({ handleFilter }) => {
     return (
         <>
-            filter shown with <input type='text' onChange={handleFilter} />
+            <p>filter shown with</p>
+            <input type='text' onChange={handleFilter} className='input_filter' />
         </>
     )
 }

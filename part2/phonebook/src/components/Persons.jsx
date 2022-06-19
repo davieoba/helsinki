@@ -5,7 +5,7 @@ export const Persons = ({ render, handleDelete }) => {
 
         return <div key={el.id} className='test'>
             <li> {el.name} {el.number}</li>
-            <button onClick={() => handleDelete(el.id)}>delete</button>
+            <button className="btn_del" onClick={() => handleDelete(el.id)}>delete</button>
         </div>
     })
 

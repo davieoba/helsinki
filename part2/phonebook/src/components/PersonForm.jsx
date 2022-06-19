@@ -3,19 +3,19 @@ export const PersonForm = ({ handleSubmit, userNameValue, handleChange, userPhon
 
     return (
         <>
-            <form onSubmit={handleSubmit} >
-                <div>
+            <form onSubmit={handleSubmit} className='form_add' autocomplete='off'>
+                <div className="form_group">
                     <label htmlFor="name">name:</label>
-                    <input id='name' value={userNameValue} onChange={handleChange} name='username' />
+                    <input id='name' value={userNameValue} onChange={handleChange} name='username' className="input_add" />
                 </div>
 
-                <div>
+                <div className="form_group">
                     <label htmlFor="number"> number:</label>
-                    <input id='number' value={userPhoneValue} onChange={handleChange} name='phone' />
+                    <input id='number' value={userPhoneValue} onChange={handleChange} name='phone' className="input_add" />
                 </div>
 
                 <div>
-                    <button type="submit" >add</button>
+                    <button type="submit" className="btn_add">add</button>
                 </div>
             </form>
         </>
