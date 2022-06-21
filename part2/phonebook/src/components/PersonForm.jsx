@@ -3,7 +3,7 @@ export const PersonForm = ({ handleSubmit, userNameValue, handleChange, userPhon
 
     return (
         <>
-            <form onSubmit={handleSubmit} className='form_add' autocomplete='off'>
+            <form onSubmit={handleSubmit} className='form_add' autoComplete='off'>
                 <div className="form_group">
                     <label htmlFor="name">name:</label>
                     <input id='name' value={userNameValue} onChange={handleChange} name='username' className="input_add" />

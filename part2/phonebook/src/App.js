@@ -93,7 +93,8 @@ const App = () => {
         }, 5000)
       }).catch((err) => {
         const notifObj = {
-          message: `Information of ${obj.name} has already been removed from the server`,
+          // message: `Information of ${obj.name} has already been removed from the server`,
+          message: err.message,
           classProp: 'error'
         }
         setNotif(notifObj)
@@ -119,7 +120,7 @@ const App = () => {
       return
     }
 
-    // create a new person contact in the mock db 
+    // create a new person contact in the db 
     phoneService.create(obj).then((res) => {
       const notifObj = {
         message: `Added ${res.name}`,
@@ -130,6 +131,17 @@ const App = () => {
         setNotif({ message: null })
       }, 5000)
       setPersons(persons.concat(res))
+    }).catch(err => {
+      // console.log(err)
+      const notifObj = {
+        message: `${err.response.data.error}`,
+        classProp: 'error'
+      }
+
+      setNotif(notifObj)
+      setTimeout(() => {
+        setNotif({ message: null })
+      }, 5000)
     })
 
     // clear the input form

@@ -1,119 +1,134 @@
+require('dotenv').config()
 const express = require('express')
 const app = express()
 const cors = require('cors')
 const morgan = require('morgan')
+const Phone = require('./models/phone')
 
+app.use(express.static('build'))
 app.use(express.json())
 app.use(cors())
 app.use(morgan('tiny'))
-app.use(express.static('build'))
 
 
-let persons = [
-    {
-        "id": 1,
-        "name": "Arto Hellas",
-        "number": "040-123456"
-    },
-    {
-        "id": 2,
-        "name": "Ada Lovelace",
-        "number": "39-44-5323523"
-    },
-    {
-        "id": 3,
-        "name": "Dan Abramov",
-        "number": "12-43-234345"
-    },
-    {
-        "id": 4,
-        "name": "Mary Poppendieck",
-        "number": "39-23-6423122"
-    },
-    {
-        "id": 5,
-        "name": "Mary Poppendieck",
-        "number": "39-23-6423122"
-    }
-]
+// generate unique ids
+// const generateIds = () => {
+// 	const random = String(Math.random() * 9999)
+// 	let cxx = random.split('.')
+// 	let final = cxx.join('')
 
-// generate unique ids 
-const generateIds = () => {
-    const random = String(Math.random() * 9999)
-    let cxx = random.split('.')
-    let final = cxx.join('')
+// 	return final
+// }
 
-    return final
-}
+app.get('/api/persons', async (req, res) => {
+	const persons = await Phone.find()
 
-
-app.get('/api/persons', (req, res) => {
-    res.status(200).json(persons)
+	return res.status(200).json(persons)
 })
 
-app.get('/info', (req, res) => {
-    const personsLength = persons.length
+app.get('/info', async (req, res) => {
+	const persons = await Phone.find()
+	const personsLength = persons.length
 
-    res.status(200).send(`
+	res.status(200).send(`
         <h3> Phonebook has info for ${personsLength} people </h3> 
         <h3> ${new Date()}</h3>
     `)
 })
 
-app.get('/api/persons/:id', (req, res) => {
+app.get('/api/persons/:id', (req, res, next) => {
 
-    const id = Number(req.params.id)
+	Phone.findById(req.params.id).then((data) => {
+		if (data) {
+			res.status(200).json(data)
+		} else {
+			res.status(404).end()
+		}
 
-    const data = persons.find((el) => {
-        return el.id === id
-    })
-
-    if (!data) {
-        return res.status(404).send({ error: ' not found' })
-    }
-
-    res.status(200).json(data)
+	}).catch((err) => {
+		next(err)
+	})
 })
 
-app.delete('/api/persons/:id', (req, res) => {
-    const id = Number(req.params.id)
+app.post('/api/persons', async (req, res, next) => {
 
-    persons = persons.filter((el) => {
-        return el.id !== id
-    })
 
-    res.status(204).end()
+	if (req.body === undefined) {
+		return res.status(400).json({ error: 'content missing' })
+	}
+
+	const obj = {
+		name: req.body.name,
+		number: req.body.number,
+	}
+
+	// find if the obj exists in the db
+	const exist = await Phone.find({ name: req.body.name })
+
+
+	if (exist.length === 1) return next({ name: 'WrongHandler', statusCode: 400, message: 'Make use of the put request to update Phone' })
+
+	const phone = new Phone(obj)
+	phone.save().then((data) => {
+		res.status(200).json(data)
+	}).catch(err => next(err))
+
 })
 
-app.post('/api/persons', (req, res) => {
-    const id = generateIds()
+app.put('/api/persons/:id', (req, res, next) => {
+	const id = req.params.id
 
-    const obj = {
-        name: req.body.name,
-        number: req.body.number,
-        id
-    }
+	const obj = { ...req.body }
 
-    // check if the data exists
-    const exist = persons.find((el) => {
-        return el.name === obj.name
-    })
+	// console.log(obj)
 
-    if (exist) {
-        return res.status(400).send({ error: 'name must be unique' })
-    }
-
-    if (obj.number === '' || obj.name === '') {
-        return res.status(400).josn({ error: 'Name or number data is missing' })
-    }
-
-    persons = persons.concat(obj)
-
-    res.status(200).json(obj)
+	Phone.findByIdAndUpdate(id, obj, {
+		new: true,
+		runValidators: true,
+		context: 'query'
+	}).then((data) => {
+		res.json(data)
+	}).catch(err => next(err))
 })
+
+app.delete('/api/persons/:id', (req, res, next) => {
+	const id = req.params.id
+
+	Phone.findByIdAndRemove(id).then(() => {
+		res.status(204).end()
+	}).catch(err => next(err))
+
+})
+
+const unknownEndpoint = (req, res) => {
+	res.status(404).send({ error: 'unknown endpoint' })
+}
+
+app.use(unknownEndpoint)
+
+const errorHandler = (err, req, res, next) => {
+	console.error(err)
+
+	if (err.name === 'CastError') {
+		console.log(err)
+		return res.status(500).send({ error: 'malformed id' })
+	} else if (err.name === 'ValidationError') {
+		return res.status(500).json({ error: err.message })
+	} else if (err.name === 'MongoServerError') {
+		return res.status(500).json({ error: err.message })
+	} else if (err.name === 'WrongHandler') {
+		return res.status(500).json({ error: err })
+	}
+
+	next(err)
+}
+
+
+app.use(errorHandler)
 
 
 const port = process.env.PORT || 3001
 app.listen(port, () => {
-    console.log(`application has started on port ${port}`)
+	console.log(`application has started on port ${port}`)
 })
+
