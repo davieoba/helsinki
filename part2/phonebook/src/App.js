@@ -92,23 +92,17 @@ const App = () => {
           setNotif({ message: null })
         }, 5000)
       }).catch((err) => {
+
+        // alert(`the phone was already deleted from the server`)
         const notifObj = {
-          // message: `Information of ${obj.name} has already been removed from the server`,
-          message: err.message,
+          message: err.response.data.error,
           classProp: 'error'
         }
         setNotif(notifObj)
         setTimeout(() => {
           setNotif({ message: null })
         }, 5000)
-        // alert(`the phone was already deleted from the server`)
 
-        // sendNotification
-        const removeUser = persons.filter((el) => {
-          return el.id !== id
-        })
-
-        setPersons(removeUser)
       })
 
       // clear the form
@@ -132,7 +126,6 @@ const App = () => {
       }, 5000)
       setPersons(persons.concat(res))
     }).catch(err => {
-      // console.log(err)
       const notifObj = {
         message: `${err.response.data.error}`,
         classProp: 'error'

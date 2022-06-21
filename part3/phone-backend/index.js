@@ -52,7 +52,6 @@ app.get('/api/persons/:id', (req, res, next) => {
 
 app.post('/api/persons', async (req, res, next) => {
 
-
 	if (req.body === undefined) {
 		return res.status(400).json({ error: 'content missing' })
 	}
@@ -68,6 +67,7 @@ app.post('/api/persons', async (req, res, next) => {
 
 	if (exist.length === 1) return next({ name: 'WrongHandler', statusCode: 400, message: 'Make use of the put request to update Phone' })
 
+	console.log(obj)
 	const phone = new Phone(obj)
 	phone.save().then((data) => {
 		res.status(200).json(data)
@@ -79,8 +79,6 @@ app.put('/api/persons/:id', (req, res, next) => {
 	const id = req.params.id
 
 	const obj = { ...req.body }
-
-	// console.log(obj)
 
 	Phone.findByIdAndUpdate(id, obj, {
 		new: true,
@@ -107,10 +105,8 @@ const unknownEndpoint = (req, res) => {
 app.use(unknownEndpoint)
 
 const errorHandler = (err, req, res, next) => {
-	console.error(err)
 
 	if (err.name === 'CastError') {
-		console.log(err)
 		return res.status(500).send({ error: 'malformed id' })
 	} else if (err.name === 'ValidationError') {
 		return res.status(500).json({ error: err.message })
