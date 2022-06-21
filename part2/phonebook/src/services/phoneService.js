@@ -1,7 +1,7 @@
 import axios from 'axios'
-const fullUrl = `http://localhost:3001/api/persons`
+// const fullUrl = `http://localhost:3001/api/persons`
 const baseUrl = `/api/persons`
-const heroku = `https://phone-backend-davidbond.herokuapp.com/api/persons`
+// const heroku = `https://phone-backend-davidbond.herokuapp.com/api/persons`
 
 // get all the user
 const getAll = () => {
@@ -27,7 +27,7 @@ const update = (id, obj) => {
 
 // delete a user with the user's unique id
 const deleteData = (id) => {
-    const request = axios.delete(`${baseUrl}/${id}`)
+    axios.delete(`${baseUrl}/${id}`)
 
     return
 }

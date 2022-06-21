@@ -33,8 +33,8 @@ const App = () => {
   const [filter, setFilter] = useState('')
 
   const handleChange = (e) => {
-    const userName = e.target.value
-    const phonenumber = e.target.value
+    // const userName = e.target.value
+    // const phonenumber = e.target.value
     setNewName((prev) => {
       return {
         ...prev,
