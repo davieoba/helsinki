@@ -1,4 +1,6 @@
-const { dummy, totalLikes } = require('../utils/list_helper')
+const {
+  dummy, totalLikes, mostLikes, mostBlogs, favoriteBlog
+} = require('../utils/list_helper')
 
 test('dummy should return 1', () => {
   const blogs = []
@@ -84,5 +86,65 @@ describe('blog results', () => {
     const result = totalLikes(blogs)
 
     expect(result).toBe(36)
+  })
+})
+
+describe('most likes', () => {
+  test('find the most liked author', () => {
+    const blog = [{
+      author: 'Edsger W. Dijkstra',
+      likes: 12
+    }, {
+      author: 'Sadio Mane',
+      likes: 14
+    }, {
+      author: 'Kishimoto Masashi',
+      likes: 8
+    }]
+
+    const res = mostLikes(blog)
+
+    expect(res[0]).toEqual({
+      author: 'Sadio Mane',
+      likes: 14
+    })
+  })
+})
+
+describe('most blogs', () => {
+  test('author with most blogs', () => {
+    const res = mostBlogs([
+      {
+        author: 'Robert C. Martin',
+        blogs: 3
+      },
+      {
+        author: 'Jerry C. Agada',
+        blogs: 5
+      }
+    ])
+
+    expect(res).toEqual({
+      author: 'Jerry C. Agada',
+      blogs: 5
+    })
+  })
+})
+
+describe('favourite blog', () => {
+  test('return blog with most likes', () => {
+    const res = favoriteBlog([
+      {
+        title: 'Canonical string reduction',
+        author: 'Edsger W. Dijkstra',
+        likes: 12
+      }
+    ])
+
+    expect(res[0]).toEqual({
+      title: 'Canonical string reduction',
+      author: 'Edsger W. Dijkstra',
+      likes: 12
+    })
   })
 })
