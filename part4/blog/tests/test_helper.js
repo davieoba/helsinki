@@ -19,7 +19,7 @@ const nonExistingId = async () => {
   const blog = new Blog({
     title: 'will remove this soon',
     author: 'will remove',
-    url: 'remove.com',
+    url: 'www.remove.com',
     likes: 0
   })
 
@@ -31,8 +31,8 @@ const nonExistingId = async () => {
 
 const blogsInDb = async () => {
   const blogs = await Blog.find({})
-  return blogs.map((blog) => blog.toJSON())
-  // return notes
+  // return blogs.map((blog) => blog.toJSON())
+  return blogs
 }
 
 module.exports = {
