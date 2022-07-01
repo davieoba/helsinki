@@ -122,6 +122,10 @@ describe('a valid blog', () => {
     expect(res.length).toBe(helper.initialBlog.length + 1)
     expect(titles).toContain('TDD harms architecture')
   })
+
+  test('blog will fail without token', async () => {
+
+  })
 })
 
 describe('test user', () => {
