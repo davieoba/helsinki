@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const bcrypt = require('bcryptjs')
 const supertest = require('supertest')
 const helper = require('./test_helper')
 const app = require('../app')
@@ -6,6 +7,7 @@ const app = require('../app')
 const api = supertest(app)
 
 const Blog = require('../models/blog')
+const User = require('../models/user')
 
 const url = '/api/blogs'
 
@@ -25,20 +27,6 @@ describe('when at init some notes are saved', () => {
       .expect('Content-Type', /application\/json/)
 
     expect(res.body).toHaveLength(helper.initialBlog.length)
-  })
-
-  test('a specific blog can be viewed', async () => {
-    const blogAtStart = await helper.blogsInDb()
-    const blogToView = blogAtStart[0]
-
-    const resultNote = await api
-      .get(`/api/blogs/${blogToView.id}`)
-      .expect(200)
-      .expect('Content-Type', /application\/json/)
-
-    const processedNote = JSON.parse(JSON.stringify(blogToView))
-
-    expect(resultNote.body).toEqual(processedNote)
   })
 
   // ex
@@ -71,7 +59,7 @@ describe('deleting a specific blog', () => {
   })
 })
 
-describe('no likes', async () => {
+describe('no likes', () => {
   // ex
   test('default to zero', async () => {
     const testData = {
@@ -133,6 +121,77 @@ describe('a valid blog', () => {
 
     expect(res.length).toBe(helper.initialBlog.length + 1)
     expect(titles).toContain('TDD harms architecture')
+  })
+})
+
+describe('test user', () => {
+  beforeEach(async () => {
+    await User.deleteMany()
+    const hashPassword = await bcrypt.hash('incredible', 10)
+    const user = new User({ name: 'David', password: hashPassword, username: 'sage' })
+
+    await user.save()
+  }, 100000)
+
+  // pass
+  test('user without username will not save', async () => {
+    const usersBefore = await helper.usersInDb()
+    const testData = {
+      name: 'Sadio',
+      password: 'pass'
+    }
+
+    const res = await api
+      .post('/api/users')
+      .send(testData)
+      .expect(400)
+
+    expect(res.body.error.message).toContain('User validation failed: username: Path `username` is required.')
+    const usersAfter = await helper.usersInDb()
+
+    expect(usersAfter.length).toBe(usersBefore.length)
+  })
+
+  // pass
+  test('if user password is less than required it will not save', async () => {
+    const beforeTest = await helper.usersInDb()
+    const testData = {
+      name: 'Sadio',
+      password: 'p',
+      username: 'mane'
+    }
+
+    const res = await api
+      .post('/api/users')
+      .send(testData)
+      .expect(400)
+
+    expect(res.body.message).toContain('password is too short')
+
+    const afterTest = await helper.usersInDb()
+
+    expect(afterTest.length).toBe(beforeTest.length)
+  })
+
+  // pass
+  test('creation fails if username exist already', async () => {
+    const beforeTest = await helper.usersInDb()
+
+    const testData = {
+      name: 'Sadio',
+      password: 'pass',
+      username: 'sage'
+    }
+
+    const res = await api
+      .post('/api/users')
+      .send(testData)
+      .expect(400)
+
+    expect(res.body).toEqual({ message: 'username must be unique' })
+
+    const afterTest = await helper.usersInDb()
+    expect(afterTest.length).toBe(beforeTest.length)
   })
 })
 
