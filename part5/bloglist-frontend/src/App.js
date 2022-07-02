@@ -3,6 +3,7 @@ import Blog from './components/Blog'
 import blogService from './services/blogs'
 import loginService from './services/login'
 import Notification from './components/Notification'
+import { BlogForm } from './components/BlogForm'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -16,6 +17,7 @@ const App = () => {
     message: '',
     classProp: ''
   })
+  const [formVisibility, setFormVisibility] = useState(false)
 
 
   useEffect(() => {
@@ -148,6 +150,7 @@ const App = () => {
       setTitle('')
       setAuthor('')
       setUrl('')
+      setFormVisibility(false)
     } catch (err) {
       const notifObj = {
         message: 'error creating blog',
@@ -158,6 +161,15 @@ const App = () => {
         setNotif({ message: null })
       }, 5000)
     }
+  }
+
+  const handleVisibility = () => {
+    setFormVisibility(prev => !prev)
+  }
+
+  const renderNewBlogForm = () => {
+    return formVisibility ? <BlogForm handleCreateBlog={handleCreateBlog} /> : <button onClick={handleVisibility}>new blog</button>
+    // return formVisibility ? blogForm() : <button onClick={handleVisibility}>new blog</button>
   }
 
   return (
@@ -182,7 +194,9 @@ const App = () => {
       )}
 
       <h2>create new blog</h2>
-      {blogForm()}
+      {/* <button onClick={handleVisibility}>new blog</button>
+      {blogForm()} */}
+      {renderNewBlogForm()}
     </div>
   )
 }
