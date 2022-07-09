@@ -1,24 +1,21 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
 import loginService from './services/login'
 import Notification from './components/Notification'
 import { BlogForm } from './components/BlogForm'
+import { Togglable } from './components/Togglable'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [user, setUser] = useState(null)
   const [password, setPassword] = useState('')
   const [username, setUsername] = useState('')
-  const [title, setTitle] = useState('')
-  const [author, setAuthor] = useState('')
-  const [url, setUrl] = useState('')
   const [notif, setNotif] = useState({
     message: '',
     classProp: ''
   })
-  const [formVisibility, setFormVisibility] = useState(false)
-
+  const blogRef = useRef()
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -93,85 +90,6 @@ const App = () => {
     )
   }
 
-  const blogForm = () => {
-    return (
-      <form onSubmit={handleCreateBlog}>
-        <div>
-          <label htmlFor="title">title:</label>
-          <input
-            type="text"
-            name='title'
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </div>
-
-        <div>
-          <label htmlFor="author">author:</label>
-          <input
-            type="text"
-            value={author}
-            name='author'
-            onChange={(e) => setAuthor(e.target.value)} />
-        </div>
-
-        <div>
-          <label htmlFor="url">url:</label>
-          <input
-            type="text"
-            value={url}
-            name='url'
-            onChange={(e) => setUrl(e.target.value)} />
-        </div>
-        <button>create</button>
-      </form>
-    )
-  }
-
-  const handleCreateBlog = async (e) => {
-    e.preventDefault()
-
-    try {
-      const blog = await blogService.createBlog({
-        title,
-        author,
-        url
-      })
-
-      const notifObj = {
-        message: `a new blog ${blog.title} by ${blog.author} added`,
-        classProp: 'success'
-      }
-      setNotif(notifObj)
-      setTimeout(() => {
-        setNotif({ message: null })
-      }, 5000)
-
-      setTitle('')
-      setAuthor('')
-      setUrl('')
-      setFormVisibility(false)
-    } catch (err) {
-      const notifObj = {
-        message: 'error creating blog',
-        classProp: 'error'
-      }
-      setNotif(notifObj)
-      setTimeout(() => {
-        setNotif({ message: null })
-      }, 5000)
-    }
-  }
-
-  const handleVisibility = () => {
-    setFormVisibility(prev => !prev)
-  }
-
-  const renderNewBlogForm = () => {
-    return formVisibility ? <BlogForm handleCreateBlog={handleCreateBlog} /> : <button onClick={handleVisibility}>new blog</button>
-    // return formVisibility ? blogForm() : <button onClick={handleVisibility}>new blog</button>
-  }
-
   return (
     <div>
       <h2>blogs</h2>
@@ -194,9 +112,10 @@ const App = () => {
       )}
 
       <h2>create new blog</h2>
-      {/* <button onClick={handleVisibility}>new blog</button>
-      {blogForm()} */}
-      {renderNewBlogForm()}
+
+      <Togglable buttonLabel='new blog' ref={blogRef}>
+        <BlogForm toggle={blogRef?.current?.toggleVisibility} />
+      </Togglable>
     </div>
   )
 }
