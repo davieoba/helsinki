@@ -23,4 +23,8 @@ const createBlog = async (newObject) => {
   return res.data
 }
 
+const updateLikes = async () => {
+
+}
+
 export default { getAll, createBlog, setToken }
