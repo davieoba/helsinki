@@ -1,6 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import blogService from '../services/blogs'
 
 const Blog = ({ blog }) => {
+  console.log(blog)
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -18,6 +20,36 @@ const Blog = ({ blog }) => {
 
   const hide = { display: visibility ? 'block' : 'none' }
 
+  const [likes, setLikes] = useState(blog.likes)
+  const handleClick = async () => {
+    // @todo:  when clicked increment the current value of like 
+    setLikes(prev => prev + 1)
+    // @note: update the blogData to be sent to the DB
+    // const blogData = {
+    //   user: blog.user.id,
+    //   likes: likes,
+    //   author: blog.author,
+    //   title: blog.title,
+    //   url: blog.url
+    // }
+
+    // await blogService.updateLikes(blog.id, blogData)
+  }
+
+  useEffect(() => {
+    const blogData = {
+      user: blog.user.id,
+      likes: likes,
+      author: blog.author,
+      title: blog.title,
+      url: blog.url
+    }
+
+    blogService.updateLikes(blog.id, blogData).then((data) => {
+      console.log(data)
+    })
+  }, [likes, blog.url, blog.author, blog.title, blog.id, blog.user.id])
+
   return (
     <div style={blogStyle}>
       <div>
@@ -30,7 +62,7 @@ const Blog = ({ blog }) => {
         </div>
 
         <div>
-          {blog.likes}
+          {likes} <button onClick={handleClick}>like</button>
         </div>
 
         <div>
