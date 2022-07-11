@@ -5,12 +5,13 @@ const Blog = ({ blog }) => {
     border: 'solid',
     borderWidth: 1,
     marginBottom: 5,
-    width: 400
+    width: 300
   }
+
   return (
     <div style={blogStyle}>
       <div>
-        {blog.title} {blog.author}
+        {blog.title} {blog.author} <button style={{ marginLeft: '100px' }}> view </button>
       </div>
     </div>
   )

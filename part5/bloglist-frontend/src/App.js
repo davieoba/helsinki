@@ -86,7 +86,7 @@ const App = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)} />
         </div>
-        <button>login</button>
+        <button style={{ width: '100px' }} className='button'>login</button>
       </form>
     )
   }

@@ -23,14 +23,20 @@ body {
 
 button {
   outline: none;
+  border: none;
+  padding: 8px 12px;
   background-color: #333;
   color: #eee;
-  border: none;
   border-radius: 4px;
+}
+
+.button {
   height: 40px;
   width: 150px;
   cursor: pointer;
   margin-bottom: 10px;
+  font-family: "nunito";
+  font-weight: bold;
 }
 
 input {
@@ -39,6 +45,10 @@ input {
   border-radius: 4px;
   height: 40px;
   border: 2px solid #333;
+  font-weight: bold;
+  font-family: "nunito";
+  font-size: 22px;
+  padding: 0 10px;
 }
 
 form {

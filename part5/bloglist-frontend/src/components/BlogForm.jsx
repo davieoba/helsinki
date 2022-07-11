@@ -78,7 +78,7 @@ export const BlogForm = (props) => {
             name='url'
             onChange={(e) => setUrl(e.target.value)} />
         </div>
-        <button style={{ marginTop: '20px' }}>create new</button>
+        <button style={{ marginTop: '20px', width: '100px', marginBottom: '10px' }}>create new</button>
       </form>
     </>
   )
