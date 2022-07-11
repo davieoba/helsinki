@@ -92,7 +92,7 @@ const App = () => {
   }
 
   return (
-    <div>
+    <div className='app_container'>
       <h2>blogs</h2>
 
       <Notification message={notif.message} classProp={notif.classProp} />
