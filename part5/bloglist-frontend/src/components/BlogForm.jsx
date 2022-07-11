@@ -6,45 +6,45 @@ export const BlogForm = (props) => {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
-  const [notif, setNotif] = useState({
-    message: '',
-    classProp: ''
-  })
+  // const [notif, setNotif] = useState({
+  //   message: '',
+  //   classProp: ''
+  // })
 
 
   const handleCreateBlog = async (e) => {
     e.preventDefault()
 
     try {
-      const blog = await blogService.createBlog({
+      await blogService.createBlog({
         title,
         author,
         url
       })
 
-      const notifObj = {
-        message: `a new blog ${blog.title} by ${blog.author} added`,
-        classProp: 'success'
-      }
+      // const notifObj = {
+      //   message: `a new blog ${blog.title} by ${blog.author} added`,
+      //   classProp: 'success'
+      // }
 
-      setNotif(notifObj)
-      setTimeout(() => {
-        setNotif({ message: null })
-      }, 5000)
+      // setNotif(notifObj)
+      // setTimeout(() => {
+      //   setNotif({ message: null })
+      // }, 5000)
 
+      props?.toggle?.()
       setTitle('')
       setAuthor('')
       setUrl('')
-      props.toggle()
     } catch (err) {
-      const notifObj = {
-        message: 'error creating blog',
-        classProp: 'error'
-      }
-      setNotif(notifObj)
-      setTimeout(() => {
-        setNotif({ message: null })
-      }, 5000)
+      // const notifObj = {
+      //   message: 'error creating blog',
+      //   classProp: 'error'
+      // }
+      // setNotif(notifObj)
+      // setTimeout(() => {
+      //   setNotif({ message: null })
+      // }, 5000)
     }
   }
 
@@ -78,7 +78,7 @@ export const BlogForm = (props) => {
             name='url'
             onChange={(e) => setUrl(e.target.value)} />
         </div>
-        <button>create</button>
+        <button style={{ marginTop: '20px' }}>create new</button>
       </form>
     </>
   )

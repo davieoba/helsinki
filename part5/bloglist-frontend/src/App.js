@@ -17,6 +17,7 @@ const App = () => {
   })
   const blogRef = useRef()
 
+
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs(blogs)
@@ -102,7 +103,7 @@ const App = () => {
       </div>
 
       {user &&
-        <div>
+        <div style={{ marginBottom: '20px' }}>
           <span>{user.name} logged in </span>
           <button onClick={() => handleLogout()}>logout</button>
         </div>}
@@ -113,7 +114,7 @@ const App = () => {
 
       <h2>create new blog</h2>
 
-      <Togglable buttonLabel='new blog' ref={blogRef}>
+      <Togglable buttonLabel='create new blog' ref={blogRef}>
         <BlogForm toggle={blogRef?.current?.toggleVisibility} />
       </Togglable>
     </div>
