@@ -1,3 +1,4 @@
+/*eslint no-unsafe-optional-chaining: "error"*/
 import { useState, useEffect, useRef } from 'react'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
@@ -94,7 +95,7 @@ const App = () => {
   const sortBlog = () => {
     // @note sort the blog
     const sorted = blogs.sort((a, b) => {
-      // @todo: compare the values of a.likes and b.likes 
+      // @todo: compare the values of a.likes and b.likes
       return a.likes - b.likes
     })
 

@@ -22,7 +22,7 @@ const Blog = ({ blog }) => {
 
   const [likes, setLikes] = useState(blog.likes)
   const handleClick = async () => {
-    // @todo:  when clicked increment the current value of like 
+    // @todo:  when clicked increment the current value of like
     setLikes(prev => prev + 1)
   }
 
@@ -35,26 +35,18 @@ const Blog = ({ blog }) => {
       url: blog.url
     }
 
-    blogService.updateLikes(blog.id, blogData).then((data) => {
+    blogService.updateLikes(blog.id, blogData).then(() => {
       // console.log(data)
     })
   }, [likes, blog.url, blog.author, blog.title, blog.id, blog.user.id])
 
   const handleDelete = () => {
-    // @todo: check if the user that created the blog is the logged in user
-    // get the logged in user token
     const userToken = JSON.parse(localStorage.getItem('loggedInUser')).token
-    // console.log(userToken)
-    // console.log(user)
-    // @todo: get the user id from the blog I want to delete
-    // const blogUser = blog.user.id
-    // console.log(blog.user)
 
-    // @todo call the service to delete the blog 
     blogService.setToken(blog.user)
     const res = window.confirm(`Remove blog ${blog.title} by ${blog.author}`)
     if (res === false) return
-    console.log(res)
+
     blogService.deleteBlog(blog.id, userToken)
   }
 
@@ -85,7 +77,6 @@ const Blog = ({ blog }) => {
         </div>
 
         {renderDelete()}
-        {/* <button onClick={handleDelete}> delete </button> */}
       </div>
     </div>
   )
