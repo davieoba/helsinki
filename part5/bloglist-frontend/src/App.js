@@ -91,6 +91,18 @@ const App = () => {
     )
   }
 
+  const sortBlog = () => {
+    // @note sort the blog
+    const sorted = blogs.sort((a, b) => {
+      // @todo: compare the values of a.likes and b.likes 
+      return a.likes - b.likes
+    })
+
+    return sorted
+  }
+
+  sortBlog()
+
   return (
     <div className='app_container'>
       <h2>blogs</h2>
@@ -108,7 +120,7 @@ const App = () => {
           <button onClick={() => handleLogout()}>logout</button>
         </div>}
 
-      {blogs.map(blog =>
+      {sortBlog?.()?.map(blog =>
         <Blog key={blog.id} blog={blog} />
       )}
 

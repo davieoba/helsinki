@@ -28,7 +28,8 @@ loginRouter.post('/', async (req, res) => {
   return res.status(200).json({
     token,
     username,
-    name: user.name
+    name: user.name,
+    user
   })
 })
 
