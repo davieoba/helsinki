@@ -100,6 +100,7 @@ describe('a blog will not save', () => {
   })
 })
 
+// note:this is the test I want to validate:
 describe('a valid blog', () => {
   // ex
   test('succeeds with all the required values', async () => {
@@ -112,6 +113,8 @@ describe('a valid blog', () => {
 
     await api
       .post(url)
+      // .set({ 'API-Key': 'foobar', Accept: 'application/json' })
+      .set({ 'API-Key': 'the_JWT_key_is_to_be_kept_a_secret', Accept: 'application/json' })
       .send(testData)
       .expect(201)
       .expect('Content-Type', /application\/json/)

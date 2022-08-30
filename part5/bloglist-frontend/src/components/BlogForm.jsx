@@ -1,8 +1,10 @@
-import { useState } from "react"
-import blogService from "../services/blogs"
+import { useState } from 'react'
+import blogService from '../services/blogs'
+// import { PropTypes } from 'prop-types'
 
 
-export const BlogForm = (props) => {
+export const BlogForm = ({ toggle }) => {
+  console.log(toggle)
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
@@ -32,7 +34,7 @@ export const BlogForm = (props) => {
       //   setNotif({ message: null })
       // }, 5000)
 
-      props?.toggle?.()
+      toggle?.()
       setTitle('')
       setAuthor('')
       setUrl('')
@@ -83,3 +85,4 @@ export const BlogForm = (props) => {
     </>
   )
 }
+

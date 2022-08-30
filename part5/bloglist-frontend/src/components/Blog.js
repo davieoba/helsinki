@@ -58,7 +58,7 @@ const Blog = ({ blog }) => {
   }
 
   return (
-    <div style={blogStyle}>
+    <div style={blogStyle} className='blog'>
       <div>
         {blog.title} {blog.author} <button style={{ marginLeft: '100px' }} onClick={toggle}> view </button>
       </div>

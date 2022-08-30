@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { useState, forwardRef, useImperativeHandle } from "react"
+import { useState, forwardRef, useImperativeHandle } from 'react'
 
 export const Togglable = forwardRef((props, refs) => {
   const [visibility, setVisibility] = useState(false)
@@ -10,15 +10,14 @@ export const Togglable = forwardRef((props, refs) => {
   // @note I want to expose this function here so that the blogForm component can call it as well
   const toggleVisibility = () => {
     // setVisibility(!visibility)
-    setVisibility(prev => !prev)
+    setVisibility((prev) => !prev)
   }
 
   useImperativeHandle(refs, () => {
     return {
-      toggleVisibility
+      toggleVisibility,
     }
   })
-
 
   return (
     <div>
@@ -34,6 +33,9 @@ export const Togglable = forwardRef((props, refs) => {
   )
 })
 
+Togglable.displayName = 'Togglable'
+
+
 Togglable.propTypes = {
-  buttonLabel: PropTypes.string.isRequired
+  buttonLabel: PropTypes.string.isRequired,
 }
