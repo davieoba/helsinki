@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { createNotification, removeNotification } from '../reducers/notificationReducer'
+import { setNotification } from '../reducers/notificationReducer'
 import { filterData } from './../reducers/filterReducer'
 import { voteAnecdote } from '../reducers/anecdotes'
 
@@ -9,38 +9,30 @@ export const AnecdoteList = () => {
   const anecdotes = useSelector(state => state.anecdotes)
   // const filter = useSelector(state => state.filter)
 
-  const vote = (id, content) => {
-    console.log('vote', id)
-    // dispatch({
-    //   type: 'VOTE_ANECDOTE',
-    //   data: {
-    //     payload: id
-    //   }
-    // })
-    dispatch(voteAnecdote(id, content))
+  const vote = (id, content, votes) => {
 
-    dispatch(createNotification(`You voted ${content}`))
+    dispatch(voteAnecdote(id, content, votes))
 
-    setTimeout(() => {
-      dispatch(removeNotification(''))
-    }, 5000)
+    // dispatch(createNotification(`You voted ${content}`))
+
+    // setTimeout(() => {
+    //   dispatch(removeNotification(''))
+    // }, 5000)
+
+    dispatch(setNotification({ message: `You voted ${content}`, time: 10 }))
 
   }
 
   const handleChange = (e) => {
-    // console.log(e.target.value.trim() === '')
 
     if (e.target.value === '') {
       return dispatch(filterData())
     }
     dispatch(filterData(e.target.value.trim()))
 
-    // console.log(filter)
-
   }
 
   const sortedAnecdotes = anecdotes && [...anecdotes]?.sort((a, b) => b.votes - a.votes)
-  // console.log(sortedAnecdotes)
 
   return (
     <>
@@ -52,7 +44,7 @@ export const AnecdoteList = () => {
           </div>
           <div>
             has {anecdote.votes}
-            <button onClick={() => vote(anecdote.id, anecdote.content)}>vote</button>
+            <button onClick={() => vote(anecdote.id, anecdote.content, anecdote.votes)}>vote</button>
           </div>
         </div>
       )}

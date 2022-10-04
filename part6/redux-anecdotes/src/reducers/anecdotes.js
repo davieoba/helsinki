@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import { createSlice } from '@reduxjs/toolkit'
 import { anecdoteService } from '../services/anecdotes'
 
@@ -13,13 +14,18 @@ const anecdoteSlice = createSlice({
     appendAnecdote: (state, action) => {
       state.push(action.payload)
     },
-    voteAnecdote: (state, action) => {
-      // some code
+    updateVote: (state, action) => {
+      console.log(action.payload)
+      state.map((anecdote) => {
+        if (anecdote.id === action.payload) {
+          return anecdote.votes++
+        }
+      })
     }
   }
 })
 
-export const { setAnecdote, appendAnecdote } = anecdoteSlice.actions
+export const { setAnecdote, appendAnecdote, updateVote } = anecdoteSlice.actions
 
 export const initializeAnecdotes = () => {
   return async (dispatch) => {
@@ -35,22 +41,20 @@ export const createAnecdote = (content) => {
   }
 }
 
-export const voteAnecdote = (id, data) => {
+export const voteAnecdote = (id, content, votes) => {
   return async (dispatch) => {
-    console.log(id, data)
-    const anecdote = await anecdoteService.vote(id, data)
-    console.log(anecdote)
-    // dispatch(voteAnecdote(anecdote))
+    console.log(id, content, votes)
+    const anecdoteData = {
+      id: id,
+      content: content,
+      votes: votes + 1
+    }
+    const anecdote = await anecdoteService.vote(id, anecdoteData)
+
+    console.log('reducer:', anecdote)
+
+    dispatch(updateVote(id))
   }
 }
 export default anecdoteSlice.reducer
 
-/*
-export const initializeNotes = () => {
-  return async dispatch => {
-    const notes = await noteService.getAll()
-    dispatch(setNotes(notes))
-  }
-}
-
-*/

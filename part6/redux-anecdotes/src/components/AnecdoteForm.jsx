@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useDispatch } from "react-redux"
 import { anecdoteService } from './../services/anecdotes.js'
 import { appendAnecdote, createAnecdote } from './../reducers/anecdotes.js'
@@ -20,11 +21,7 @@ export const AnecdoteForm = () => {
       votes: 0
     }
 
-    // const response = await anecdoteService.create(anecdoteData)
-
     dispatch(createAnecdote(anecdoteData))
-
-    // dispatch(appendAnecdote(response))
 
   }
   return (

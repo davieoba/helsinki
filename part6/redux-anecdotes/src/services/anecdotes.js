@@ -14,23 +14,11 @@ const create = async (data) => {
   return response.data
 }
 
-const vote = async (id, anecdoteObj) => {
-  const obj = await axios.get(`${baseUrl}/${id}`)
-  const updateObj = obj.data.votes
-  const addVote = updateObj + 1
-  console.log(updateObj, addVote)
+const vote = async (id, anecdoteData) => {
 
-  const response = await axios.put(`${baseUrl}/${id}`, { vote: addVote })
+  const response = await axios.put(`${baseUrl}/${id}`, anecdoteData)
 
-  // return response.data
+  return response.data
 }
-
-/**
- * const updateLikes = async (blogId, blogObj) => {
-  const res = await axios.put(`${baseUrl}/${blogId}`, blogObj)
-
-  return res.data
-}
- */
 
 export const anecdoteService = { getAll, create, vote }
