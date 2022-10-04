@@ -43,7 +43,7 @@ export const createAnecdote = (content) => {
 
 export const voteAnecdote = (id, content, votes) => {
   return async (dispatch) => {
-    console.log(id, content, votes)
+    // console.log(id, content, votes)
     const anecdoteData = {
       id: id,
       content: content,
@@ -56,5 +56,6 @@ export const voteAnecdote = (id, content, votes) => {
     dispatch(updateVote(id))
   }
 }
+
 export default anecdoteSlice.reducer
 
