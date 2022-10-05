@@ -1,8 +1,9 @@
-import { useDispatch } from 'react-redux'
+// import { useDispatch } from 'react-redux'
 import { filterData } from '../reducers/filterReducer'
+import { connect } from 'react-redux'
 
-export const Filter = () => {
-  const dispatch = useDispatch()
+const Filter = (props) => {
+  // const dispatch = useDispatch()
   const styles = {
     marginBottom: '20px'
   }
@@ -11,9 +12,9 @@ export const Filter = () => {
     // console.log(e.target.value.trim() === '')
 
     if (e.target.value === '') {
-      return dispatch(filterData())
+      return props.filterData()
     }
-    dispatch(filterData(e.target.value.trim()))
+    props.filterData(e.target.value.trim())
 
     // console.log(filter)
 
@@ -25,3 +26,10 @@ export const Filter = () => {
     </div>
   )
 }
+
+const mapDispatchToProps = {
+  filterData: filterData
+}
+
+const ConnectedFilter = connect(null, mapDispatchToProps)(Filter)
+export default ConnectedFilter
