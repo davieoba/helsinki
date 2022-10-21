@@ -31,6 +31,7 @@ const filterSlice = createSlice({
   initialState,
   reducers: {
     filterData: (state, action) => {
+      console.log(current(state))
       const filterState = [...state.data]
       const filteredState = filterState.filter((el) => {
         return el.content.includes(action.payload)
@@ -39,7 +40,7 @@ const filterSlice = createSlice({
       // console.log(filteredState)
 
 
-      console.log(current(state))
+      // console.log(current(state))
       return {
         ...state,
         filter: [...filteredState]

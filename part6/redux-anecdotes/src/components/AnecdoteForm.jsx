@@ -3,9 +3,11 @@ import { useDispatch } from "react-redux"
 import { anecdoteService } from './../services/anecdotes.js'
 import { appendAnecdote, createAnecdote } from './../reducers/anecdotes.js'
 
+import { connect } from 'react-redux'
+
 export const getId = () => (100000 * Math.random()).toFixed(0)
 
-export const AnecdoteForm = () => {
+export const AnecdoteForm = (props) => {
   const dispatch = useDispatch()
 
   const handleSubmit = async (e) => {
@@ -21,7 +23,7 @@ export const AnecdoteForm = () => {
       votes: 0
     }
 
-    dispatch(createAnecdote(anecdoteData))
+    props.createAnecdote(anecdoteData)
 
   }
   return (
@@ -34,3 +36,11 @@ export const AnecdoteForm = () => {
     </>
   )
 }
+
+const mapDispatchToProps = {
+  createAnecdote: createAnecdote
+}
+
+const ConnetedAnecdoteForm = connect(null, mapDispatchToProps)(AnecdoteForm)
+
+export default ConnetedAnecdoteForm
