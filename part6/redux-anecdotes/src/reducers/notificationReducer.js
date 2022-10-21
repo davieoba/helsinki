@@ -15,15 +15,6 @@ const notificationSlice = createSlice({
     removeNotification: (state, action) => {
       state.message = action.payload
     },
-    // setNotification: (state, action) => {
-    //   // some code
-    //   // I want to set the notification and also remove it after some seconds 
-    //   notificationSlice.caseReducers.createNotification(state, action.payload.message)
-
-    //   setTimeout(() => {
-    //     notificationSlice.caseReducers.removeNotification(state, '')
-    //   }, action.payload.time)
-    // }
   }
 })
 
