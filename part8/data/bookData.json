@@ -1,0 +1,64 @@
+[
+  {
+    "title": "Clean Code",
+    "published": 2008,
+    "author": "639d445db19818f9bffc0d47",
+    "genres": [
+      "refactoring"
+    ]
+  },
+  {
+    "title": "Agile software development",
+    "published": 2002,
+    "author": "639d445db19818f9bffc0d47",
+    "genres": [
+      "agile",
+      "patterns",
+      "design"
+    ]
+  },
+  {
+    "title": "Refactoring, edition 2",
+    "published": 2018,
+    "author": "639d445db19818f9bffc0d48",
+    "genres": [
+      "refactoring"
+    ]
+  },
+  {
+    "title": "Refactoring to patterns",
+    "published": 2008,
+    "author": "639d445db19818f9bffc0d4a",
+    "genres": [
+      "refactoring",
+      "patterns"
+    ]
+  },
+  {
+    "title": "Practical Object-Oriented Design, An Agile Primer Using Ruby",
+    "published": 2012,
+    "author": "639d445db19818f9bffc0d4b",
+    "genres": [
+      "refactoring",
+      "design"
+    ]
+  },
+  {
+    "title": "Crime and punishment",
+    "published": 1866,
+    "author": "639d445db19818f9bffc0d49",
+    "genres": [
+      "classic",
+      "crime"
+    ]
+  },
+  {
+    "title": "The Demon",
+    "published": 1872,
+    "author": "639d445db19818f9bffc0d49",
+    "genres": [
+      "classic",
+      "revolution"
+    ]
+  }
+]
