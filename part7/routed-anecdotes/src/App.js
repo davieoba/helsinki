@@ -23,29 +23,37 @@ const Menu = () => {
   )
 }
 
-const AnecdoteList = ({ anecdotes, notification }) => (
-  <div>
-    <h2>Anecdotes</h2>
-    <p>{notification}</p>
-    <ul>
-      {anecdotes.map((anecdote) => (
-        <li key={anecdote.id}>
-          <Link to={`anecdotes/${anecdote.id}`}>{anecdote.content}</Link>
-        </li>
-      ))}
-    </ul>
-  </div>
-)
+const AnecdoteList = ({ anecdotes, notification }) => {
+  const styles = {
+    border: '2px solid tomato',
+  }
+  return (
+    <div>
+      <h2>Anecdotes</h2>
+      <p style={{ styles }}>{notification}</p>
+      <ul>
+        {anecdotes.map((anecdote) => (
+          <li key={anecdote.id}>
+            <Link to={`anecdotes/${anecdote.id}`}>{anecdote.content}</Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
 
 const Anecdote = ({ anecdote }) => {
   return (
     <div>
       <h1>{anecdote.content}</h1>
       <h3>{anecdote.author}</h3>
-      <a href={anecdote.info} target='_blank' rel='noreferrer'>
-        info
-      </a>
-      <p>{anecdote.votes}</p>
+      <p>has {anecdote.votes} votes</p>
+      <article>
+        <span>for more info see </span>
+        <a href={anecdote.info} target='_blank' rel='noreferrer'>
+          info
+        </a>
+      </article>
     </div>
   )
 }
@@ -89,9 +97,9 @@ const CreateNew = (props) => {
   // const [info, setInfo] = useState('')
 
   // add new code
-  const content = useField('text')
-  const author = useField('text')
-  const info = useField('text')
+  const { reset: resetContent, ...content } = useField('text')
+  const { reset: resetAuthor, ...author } = useField('text')
+  const { reset: resetInfo, ...info } = useField('text')
 
   const navigate = useNavigate()
 
@@ -109,9 +117,12 @@ const CreateNew = (props) => {
 
   const handleReset = (e) => {
     e.preventDefault()
-    content.reset()
-    author.reset()
-    info.reset()
+    // content.clearvalue()
+    // author.clearvalue()
+    // info.clearvalue()
+    resetContent()
+    resetAuthor()
+    resetInfo()
   }
 
   return (
@@ -182,18 +193,18 @@ const App = () => {
     setAnecdotes(anecdotes.concat(anecdote))
   }
 
-  const anecdoteById = (id) => anecdotes.find((a) => a.id === id)
+  // const anecdoteById = (id) => anecdotes.find((a) => a.id === id)
 
-  const vote = (id) => {
-    const anecdote = anecdoteById(id)
+  // const vote = (id) => {
+  //   const anecdote = anecdoteById(id)
 
-    const voted = {
-      ...anecdote,
-      votes: anecdote.votes + 1,
-    }
+  //   const voted = {
+  //     ...anecdote,
+  //     votes: anecdote.votes + 1,
+  //   }
 
-    setAnecdotes(anecdotes.map((a) => (a.id === id ? voted : a)))
-  }
+  //   setAnecdotes(anecdotes.map((a) => (a.id === id ? voted : a)))
+  // }
 
   const match = useMatch('/anecdotes/:id')
   const anecdote = match
