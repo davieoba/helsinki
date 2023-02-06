@@ -96,6 +96,7 @@ const CreateNew = (props) => {
   // const [author, setAuthor] = useState('')
   // const [info, setInfo] = useState('')
 
+  // each of them have their separate state they are not sharing the same state even though they have the same hook
   // add new code
   const { reset: resetContent, ...content } = useField('text')
   const { reset: resetAuthor, ...author } = useField('text')
